@@ -16,16 +16,9 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '1b^+4^k@^2y6_*5&c=u79f4&$lz$fn*#mxn*=o3k*^wg&#_29e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -76,12 +69,6 @@ WSGI_APPLICATION = 'hu.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
 
 
 # Password validation
@@ -124,3 +111,19 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS= [
     STATIC_DIR,
 ]
+
+try:
+    from hu.local_settings import *
+except ImportError:
+    print(
+        '''
+        Local settings was not found. Duplicate local_settings.example and
+        rename it to local_settings.py
+        '''
+    )
+except SyntaxError:
+    print(
+        '''
+        Local settings is misconfigured.
+        '''
+    )
